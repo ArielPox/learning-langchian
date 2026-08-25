@@ -28,9 +28,9 @@ load_dotenv()
 
 # 第二步：创建模型对象。
 model = ChatOpenAI(
-    model="qwen3.6-plus",
+    model="qwen-plus",
     api_key=os.getenv("TONGYI_API_KEY"),
-    base_url=os.getenv("ALIYUN-BASE-URL"),
+    base_url=os.getenv("ALIYUN_BASE_URL"),
 )
 
 # 第三步：普通提示词。
@@ -92,7 +92,7 @@ print(response.content)
 # 结构化输出会把模型结果解析成 Python 对象，后续代码可以直接读取字段。
 structured_model = model.with_structured_output(
     ConceptExplanation,
-    method="json_mode",
+    method="function_calling",
 )
 
 structured_prompt = ChatPromptTemplate.from_messages(

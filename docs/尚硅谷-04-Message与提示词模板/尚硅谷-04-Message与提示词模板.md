@@ -1,9 +1,5 @@
 # 第04章：消息与提示词模板
 
-讲师：尚硅谷-宋红康
-
-官网：[尚硅谷](http://www.atguigu.com/)
-
 ## 1、认识消息
 
 大模型没有记忆，它的输出只和输入模型的内容有关（上下文）。很多大模型API服务也没有在服务端维护会话历史，是“`无状态`”的。因此，**如果应用需要“记住”对话历史，需要在程序中维护消息列表。**
@@ -166,12 +162,13 @@ messages = [
 
 小结：
 
-| 角色 | 字典格式 | 对象格式 | 用途 | 示例 |
-|---|---|---|---|---|
-| System | `{"role": "system", ...}` | `SystemMessage(...)` | 设定 AI 的行为、角色、规则 | “你是一个专业的数学老师” |
-| User | `{"role": "user", ...}` | `HumanMessage(...)` | 用户输入 | “什么是微积分？” |
-| Assistant | `{"role": "assistant", ...}` | `AIMessage(...)` | AI 的回复 | “微积分是研究变化率的数学分支……” |
-| Tool | `{"role": "tool", ...}` | `ToolMessage(...)` | 工具执行的结果 | “今天北京天气晴朗，万里无云” |
+
+| 角色      | 字典格式                     | 对象格式             | 用途                       | 示例                             |
+| --------- | ---------------------------- | -------------------- | -------------------------- | -------------------------------- |
+| System    | `{"role": "system", ...}`    | `SystemMessage(...)` | 设定 AI 的行为、角色、规则 | “你是一个专业的数学老师”         |
+| User      | `{"role": "user", ...}`      | `HumanMessage(...)`  | 用户输入                   | “什么是微积分？”                 |
+| Assistant | `{"role": "assistant", ...}` | `AIMessage(...)`     | AI 的回复                  | “微积分是研究变化率的数学分支……” |
+| Tool      | `{"role": "tool", ...}`      | `ToolMessage(...)`   | 工具执行的结果             | “今天北京天气晴朗，万里无云”     |
 
 ### 1.4 举例
 
@@ -1033,7 +1030,7 @@ print(msg2)
 
 字典内容遵循模型供应商的API规范，以`openai: gpt-4.1` 为例。
 
-参考官方文档：<https://developers.openai.com/api/reference/python/resources/chat/subresources/completions/methods/create>
+参考官方文档：[https://developers.openai.com/api/reference/python/resources/chat/subresources/completions/methods/create](https://developers.openai.com/api/reference/python/resources/chat/subresources/completions/methods/create)
 
 ![OpenAI 多模态消息 API 文档示例](assets/page-20-image-01.png)
 
@@ -1105,7 +1102,7 @@ print(response.content)
 - **统一格式**：每个 block 都有一个 `type`  字段，用于区分内容类型。
 - **支持类型**：包括 `text` （文本）、`image` （图片）、`audio` （音频）、`video` （视频）、`tool_call` （工具调用）以及 `reasoning` （推理/思维链）。
 
-支持的字段类型详见<https://docs.langchain.com/oss/python/langchain/messages#openai>
+支持的字段类型详见[https://docs.langchain.com/oss/python/langchain/messages#openai](https://docs.langchain.com/oss/python/langchain/messages#openai)
 
 **① 输入格式化**
 
@@ -1409,12 +1406,13 @@ print(prompt)
 
 **二者对比：**
 
-| 特性 | PromptTemplate | ChatPromptTemplate |
-|---|---|---|
-| 输出格式 | 纯文本字符串 | 消息列表 |
-| 角色支持 | ❌ 无 | ✅ `system/user/assistant` |
-| 对话历史 | ❌ 不支持 | ✅ 支持 |
-| 适用场景 | 简单提示 | 聊天、对话、多轮交互 |
+
+| 特性     | PromptTemplate | ChatPromptTemplate       |
+| -------- | -------------- | ------------------------ |
+| 输出格式 | 纯文本字符串   | 消息列表                 |
+| 角色支持 | ❌ 无           | ✅`system/user/assistant` |
+| 对话历史 | ❌ 不支持       | ✅ 支持                   |
+| 适用场景 | 简单提示       | 聊天、对话、多轮交互     |
 
 因此，用于生成消息列表的 ChatPromptTemplate，也自然取代了生成字符串的 PromptTemplate，成为构建现代LangChain 应用的首选工具。
 
@@ -1426,11 +1424,12 @@ ChatPromptTemplate是创建`聊天消息列表`的提示模板。它比普通 Pr
 
 消息类型：
 
-| 角色字符串 | 含义 | 用途 |
-|---|---|---|
-| `"system"` | 系统消息 | 设定 AI 的行为、角色、规则 |
-| `"user"` / `"human"` | 用户消息 | 用户的输入/问题 |
-| `"assistant"` / `"ai"` | AI 消息 | AI 的回复（用于对话历史） |
+
+| 角色字符串             | 含义     | 用途                       |
+| ---------------------- | -------- | -------------------------- |
+| `"system"`             | 系统消息 | 设定 AI 的行为、角色、规则 |
+| `"user"` / `"human"`   | 用户消息 | 用户的输入/问题            |
+| `"assistant"` / `"ai"` | AI 消息  | AI 的回复（用于对话历史）  |
 
 #### 2.3.1 两种实例化方式
 
